@@ -3,9 +3,10 @@ import api from "../../services/api";
 
 class Form extends Component {
   state = {
-    title: "",
-    description: "",
-    url: ""
+    user: "",
+    bhdNumber: "",
+    comment: "",
+    url: "",
   };
 
   changeHandler = e => {
@@ -15,39 +16,45 @@ class Form extends Component {
   submitHandler = async e => {
     e.preventDefault();
     console.log(this.state);
-    const response = await api.post("/products", this.state);
+    const response = await api.post("/uploads", this.state);
   };
 
   render() {
-    const { title, description, url } = this.state;
+    const { user, bhdNumber, comment, url } = this.state;
     return (
       <div>
         <p>Form</p>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={this.submitHandler} id="upload-form">
           <div>
+          <label>Usuário</label>
             <input
               type="text"
-              name="title"
-              value={title}
+              name="user"
+              value={user}
               onChange={this.changeHandler}
             />
           </div>
           <div>
+          <label>Número BHD</label>
             <input
               type="text"
-              name="description"
-              value={description}
+              name="bhdNumber"
+              value={bhdNumber}
               onChange={this.changeHandler}
             />
           </div>
           <div>
+          <label>URL</label>
             <input
-              type="file"
+              type="text"
               name="url"
               value={url}
               onChange={this.changeHandler}
             />
           </div>
+          <label>Comentários</label>
+          <textarea onChange={this.changeHandler} rows="4" cols="50" name="comment" form="upload-form"></textarea>
+          <br></br>
           <button type="submit">Submit</button>
         </form>
       </div>
